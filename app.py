@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 
 app = Flask(__name__)
 "Secrete key se generuje pomocí nejlépe os.urandom, ale obecně jde o náhodné číslo, nikdy ji nesdílím v repositáři."
@@ -51,3 +51,16 @@ def kvetak():
 @app.route("/login/")
 def login():
     return render_template("login.html.j2")
+    jmeno = request.form.get("login")
+    heslo = request.form.get("password")
+
+@app.route("/login/", method = ("POST"))
+def login post():
+    jmeno = request.form.get("login")
+    heslo = request.form.get("password")
+    if login and password:
+        session ["user"] = login
+        flash("úspěšně jsi se přihlásil")
+    else:
+        flash("Chybné údaje")   
+    return redirectur(url_for("login"))
