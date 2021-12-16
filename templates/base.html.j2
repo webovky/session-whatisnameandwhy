@@ -13,14 +13,12 @@
  <h1>Ahoj</h1>
 
 <ul>
-    <li><a href="{{ url_for('index') }}">HOme</a></li>
-    <li><a href="{{ url_for('abc') }}">ABC neco</a></li>
+    <li><a href="{{ url_for('index' ) }}">Home</a></li>
+    <li><a href="{{ url_for('abc'   ) }}">ABC neco</a></li>
     <li><a href="{{ url_for('kvetak') }}">Květák</a></li>
-    <li><a href="/banany/ahoj">Banány</a></li>
-    <li><a href="/login">Login</a></li>
+    <li><a href="{{ url_for('banany') }}">banány</a></li>
+    <li><a href="{{ url_for('count' ) }}">Počítáme</a></li>
 </ul>
-
-
 
 
 
@@ -53,6 +51,7 @@
 
 {% endblock obsah %} 
 
+<p>&copy; copyright Marek Nožka</p>
 </body>
 </html>
 

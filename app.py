@@ -1,8 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
-"Secrete key se generuje pomocí nejlépe os.urandom, ale obecně jde o náhodné číslo, nikdy ji nesdílím v repositáři."
-app.secret_key = b'\xe3\x84t\x8b\x02\x1c\xfb\x82PH\x19\xe8\x98\x05\x90\xa8\xc83\xf1\xe2\xf4v\xfe\xf0'b'\xe3\x84t\x8b\x02\x1c\xfb\x82PH\x19\xe8\x98\x05\x90\xa8\xc83\xf1\xe2\xf4v\xfe\xf0'
+app.secret_key = "2"
 
 
 @app.route("/")
@@ -12,7 +11,6 @@ def index():
 
 @app.route("/abc/", methods=["GET"])
 def abc():
-    session['user'] = 'karel'
     try:
         x = request.args.get("x") 
         y = request.args.get("y")
@@ -21,10 +19,6 @@ def abc():
         soucet = None
     except ValueError:
         soucet = "Nedělej si srandu!!!"
-    
-    slovo = request.args.get('slovo')
-    if slovo:
-        session['slovo'] = slovo
 
     return render_template("abc.html.j2", soucet=soucet)
 
@@ -39,28 +33,32 @@ def abc_post():
     return redirect(url_for("abc"))
 
 
-@app.route("/banany/<parametr>")
-def banany(parametr):
-    return render_template("banany.html.j2", parametr=parametr)
+@app.route("/banany/")
+def banany():
+    return render_template("banany.html.j2")
 
 
 @app.route("/kvetak/")
 def kvetak():
     return render_template("kvetak.html.j2")
 
-@app.route("/login/")
-def login():
-    return render_template("login.html.j2")
-    jmeno = request.form.get("login")
-    heslo = request.form.get("password")
+@app.route("/count/")
+def count():
+    session["user"] = "Karel"
+    try:
+        x = request.args.get("x") 
+        y = request.args.get("y")
+        podil = int(x) / int(y)
+    except TypeError:
+        podil = None
+    except ValueError:
+        podil = "Nedělej si srandu!!!"
+    except ZeroDivisionError:
+        podil = None
 
-@app.route("/login/", method = ("POST"))
-def login post():
-    jmeno = request.form.get("login")
-    heslo = request.form.get("password")
-    if login and password:
-        session ["user"] = login
-        flash("úspěšně jsi se přihlásil")
-    else:
-        flash("Chybné údaje")   
-    return redirectur(url_for("login"))
+
+    slovo = request.args.get("slovo")
+    if slovo:
+        session["slovo"] = slovo
+
+    return render_template("count.html.j2", podil=podil)
