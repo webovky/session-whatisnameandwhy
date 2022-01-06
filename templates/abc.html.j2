@@ -7,11 +7,20 @@
 Tady jsem si to přepsal.
 
 
+<h1>Session</h1>
+
+<strong>{{ session.get('slovo') }}</strong>
+
+<form method="get">
+    <input type="text" name="slovo">
+    <button type="submit">Odeslat</button>
+</form>
+
 <h1>Get</h1>
 
 <form  method="get">
-   <input type="number" name="x" value=""> +
-   <input type="number" name="y" value=""> = {{soucet}} 
+   <input type="text" name="x" value="{{ request.args.get('x') or '' }}"> +
+   <input type="number" name="y" value="{{ request.args.get('y') or '' }}"> = {{soucet}} 
 
     <button name="submit">Sečíst</button>
 
